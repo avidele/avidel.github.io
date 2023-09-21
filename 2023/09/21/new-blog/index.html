@@ -23,29 +23,31 @@
   </script>
 
   <meta name="description" content="Always Believe That Something Wonderful Will Happen">
-<meta property="og:type" content="website">
-<meta property="og:title" content="提瓦特大陆">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="new blog">
+<meta property="og:url" content="http://example.com/2023/09/21/new-blog/index.html">
 <meta property="og:site_name" content="提瓦特大陆">
 <meta property="og:description" content="Always Believe That Something Wonderful Will Happen">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-21T13:01:23.000Z">
+<meta property="article:modified_time" content="2023-09-21T13:01:23.386Z">
 <meta property="article:author" content="em_">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2023/09/21/new-blog/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>提瓦特大陆</title>
+  <title>new blog | 提瓦特大陆</title>
   
 
 
@@ -163,9 +165,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -181,10 +184,9 @@
       <meta itemprop="name" content="提瓦特大陆">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/21/new-blog/" class="post-title-link" itemprop="url">new blog</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          new blog
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -207,156 +209,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-      
+        
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/21/learn1/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/1.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/21/learn1/" class="post-title-link" itemprop="url">Video Compressed Sensing（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-09-21 20:36:22 / 修改时间：20:59:04" itemprop="dateCreated datePublished" datetime="2023-09-21T20:36:22+08:00">2023-09-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="使用安德森加速展开网络的端到端视频压缩感知-学习笔记"><a href="#使用安德森加速展开网络的端到端视频压缩感知-学习笔记" class="headerlink" title="使用安德森加速展开网络的端到端视频压缩感知 学习笔记"></a>使用安德森加速展开网络的端到端视频压缩感知 学习笔记</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>压缩感知(CS)作为一种成熟的技术,被广泛应用于低采样率图像的重建,特别是各种基于掩膜的CS相机中.与采用暴力采样策略的传统相机相比，这种CS相机在采集效率，存储消耗和潜在成本方面具有显着优势.</p>
-<p>这篇文章提出了一个紧凑的端到端神经网络，它可以用更少的训练参数来处理整个图像的掩模优化。这篇文章还表明，这种网络设计对应于安德森加速，这是数值优化中著名的ANONYMOUS加速技术。在真实硬件上的模拟和实验都表明这种网络优于现有方法。</p>
-<p>![img.png](Note 1&#x2F;img.png)</p>
-<p>近年来，深度判别学习方法在图像重建质量方面取得了巨大的进步。一些深度神经网络（DNN）也被提出用于压缩成像98。卷积神经网络和全连接网络被开发来重建小图像块。与基于模型的方法相比，这些基于 DNN 的方法很有效，但难以适应不同的传感矩阵。这些网络通常使用随机码掩码，例如高斯或伯努利随机掩码，因此无法实现最佳重建质量。另一方面，完全连接的网络，受到很大的搜索空间的影响，并且在实践中只有通过保留基本的连接来优化小的重复掩码。一类由非滚动迭代优化方法构建的网络已开始在图像重建中使用（例如 LISTA [21]ADMM-net [22]、118 LDAMP [23]、IRCNN [24]、 ISTA-Net [25]）。这样的网络架构结合了基于模型的方法和深度判别学习方法的优点，并且提供了高效且灵活的即插即用框架来解决逆问题。</p>
-<h2 id="2、方法"><a href="#2、方法" class="headerlink" title="2、方法"></a>2、方法</h2><h3 id="1、Mask-generation"><a href="#1、Mask-generation" class="headerlink" title="1、Mask generation"></a>1、Mask generation</h3><p>![img_1.png](Note 1&#x2F;img_1.png)<br>![img_2.png](Note 1&#x2F;img_2.png)</p>
-<h3 id="2、Subframe-reconstruction"><a href="#2、Subframe-reconstruction" class="headerlink" title="2、Subframe reconstruction"></a>2、Subframe reconstruction</h3><p>![img_3.png](Note 1&#x2F;img_3.png)</p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/21/learn1/" rel="prev" title="Video Compressed Sensing（一）">
+      <i class="fa fa-chevron-left"></i> Video Compressed Sensing（一）
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/19/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/1.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/19/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-19 13:57:49" itemprop="dateCreated datePublished" datetime="2023-09-19T13:57:49+08:00">2023-09-19</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
