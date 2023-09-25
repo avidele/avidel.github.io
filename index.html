@@ -169,6 +169,226 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/25/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="em_">
+      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="提瓦特大陆">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/25/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-25 11:31:52" itemprop="dateCreated datePublished" datetime="2023-09-25T11:31:52+08:00">2023-09-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="UE5行为树学习笔记"><a href="#UE5行为树学习笔记" class="headerlink" title="UE5行为树学习笔记"></a>UE5行为树学习笔记</h1><p>[UE4行为树详解](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143298443">UE4行为树详解（持续更新，才怪） - 知乎 (zhihu.com)</a>)</p>
+<h2 id="一-行为树节点分析"><a href="#一-行为树节点分析" class="headerlink" title="一.行为树节点分析"></a>一.行为树节点分析</h2><ol>
+<li><p><strong>Composites 节点</strong></p>
+<blockquote>
+<ol>
+<li><p>Sequence 节点</p>
+<p>按照顺序执行,若有节点返回Failed则停止执行后续节点,Sequence本身返回Failed,若下方没有任务节点,也是返回Failed.</p>
+</li>
+<li><p>Selector 节点</p>
+</li>
+<li><p>Simple Parallel 节点</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>任务节点</strong></p>
+<blockquote>
+<p>顺时任务</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 瞬间完成的任务</span></span><br><span class="line"></span><br><span class="line"><span class="function">EBTNodeResult::Type <span class="title">UBTTask_MyTask::ExecuteTask</span><span class="params">(UBehaviorTreeComponent&amp; OwnerComp, </span></span></span><br><span class="line"><span class="params"><span class="function"> uint8* NodeMemory)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="comment">// do something</span></span><br><span class="line"> <span class="keyword">return</span> EBTNodeResult::Succeeded;</span><br><span class="line"> <span class="comment">// return EBTNodeResult::Failed;</span></span><br><span class="line"> <span class="comment">// return EBTNodeResult::Aborted;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>持续时间任务</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 持续一段时间的任务</span></span><br><span class="line"></span><br><span class="line">UBTTask_MyTask::<span class="built_in">UBTTask_MyTask</span>()</span><br><span class="line">&#123;</span><br><span class="line">    bNotifyTick = <span class="literal">true</span>; <span class="comment">// 执行TickTask()的必要设置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">UBTTask_MyTask::TickTask</span><span class="params">(UBehaviorTreeComponent&amp; OwnerComp, </span></span></span><br><span class="line"><span class="params"><span class="function">    uint8* NodeMemory, <span class="type">float</span> DeltaSeconds)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// check 一段时间后结束</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/*满足条件*/</span>) <span class="built_in">FinishLatentTask</span>(*BehaviorComp, EBTNodeResult::Succeeded);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ol>
+<p>3.<strong>装饰器节点</strong></p>
+<p>装饰器是作用在行为树中的一种节点，作用是控制其他节点是否执行，或者打断正在执行的任务。</p>
+<ul>
+<li><p><strong>None</strong>：选了None的装饰器不起任何作用。个人认为是为了方便调试，你可以不用删除这个装饰器，选择None，可以忽略这个装饰器判断。</p>
+</li>
+<li><p><strong>Self</strong>：（可以立刻停止自身的）若装饰器的计算结果为True，则执行修饰的任务，如果装饰器修饰Composites节点，则允许继续查找下级节点。如果装饰器结果是false，则不执行修饰的任务，如果这个任务修饰正在持续执行的任务，当装饰器计算结果由True改变为False时，当前任务会停止；如果装饰器修饰Composites节点，则不会继续查找下级节点。</p>
+</li>
+<li><p><strong>LowerPriority</strong>：（可以立刻停止低优先级的）若当前装饰器计算结果为False，则不能执行当前修饰的节点，要执行比这个优先级低的节点。若装饰器计算结果True，会执行当前节点，并且会停止比当前节点低优先级的各种节点。进一步理解，当有一个任务是持续任务正在执行，修饰这个任务的 LowerPriority 装饰器，从True变成False，则不会停止持续任务，因为不是Self，但是如果这个任务结束了，下次再想执行，就不能执行了，因为装饰器是False。</p>
+</li>
+<li><p><strong>Both</strong>：（既可以立刻停止自身的，又可以立刻停止低优先级的）单词意思是两者，哪两者？Self和Lower Priority。当这种装饰器为True，则可以执行当前节点，停止低优先级的节点。如果这装饰器为False，则停止当前修饰的节点，执行低优先级的节点.</p>
+</li>
+<li><h2 id="其他：关于制作行为树的理解"><a href="#其他：关于制作行为树的理解" class="headerlink" title="其他：关于制作行为树的理解"></a>其他：关于制作行为树的理解</h2><ul>
+<li><p><strong>Pawn或者Character</strong>。角色可以指定一个AIController控制，比如一个狼狗角色，可以切换AIController，既可以是攻击你的怪物，也可以是NPC，或者是你可以用命令控制的宠物。角色内可以封装和角色相关的行为，角色中也有很多关键的状态，比如自定义一个bBettle战斗状态，这个状态如果在行为树中会用到，则可以将这个状态作为副本放在黑板值中，但是注意，不要在角色类中操作黑板值的更新。</p>
+</li>
+<li><p><strong>AIController</strong>。具备移动导航功能，感知相关功能，这个类用来驱动角色类行为，然后可以写修改黑板值的逻辑。比如，角色类中有个bBettle战斗状态，某个怪物感知到附近有攻击目标，AIController就会做2件事，设置角色的bBettle&#x3D;True，设置黑板值BettleState&#x3D;&#x3D;True。有时候你需要立刻停止正在执行的任务，可以调用UBehaviorTreeComponent::RestartTree方法。</p>
+</li>
+<li><p><strong>行为树资源</strong>。由各种通用的节点组成的逻辑脚本集合，行为树资源在内存中是唯一的，也就是说，多个角色会公用一个行为树资源。</p>
+</li>
+<li><p><strong>黑板资源和黑板值</strong>。用于传递数据。思考一下什么值需要变为黑板值存在呢？就是通用的用于判断子树或者任务能否执行的值，阻止做某件事，或者阻止做某件事的同时允许做某事。那就需要设置成黑板值了。黑板值可以简单的是角色属性的副本，更有可能是一个判断结果的临时保存。</p>
+</li>
+<li><p><strong>任务</strong>。具体要做的事。可以去更新黑板值，比如更新一个位置信息。调用角色内封装好的行为。个人建议，不要在任务中写复杂的关于角色内部要做的事。另外不要在任务中绑定角色的代理，因为这个任务对于所有角色是共享的。</p>
+</li>
+<li><p><strong>装饰器</strong>。条件判断，控制行为树子树的切换，控制是否执行节点。</p>
+</li>
+<li><p><strong>服务</strong>。间隔更新黑板值。或者间隔判断某个情况，再更新黑板值。</p>
+<blockquote>
+<p><strong>附UML类图</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-3a922a186944114f39df24c0c752c3d8_720w.webp" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-f0dfbed7e12c3c42e18086d4b56b07f2_720w.webp" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-da817175f60e8f3c72fec11d0d209378_720w.webp" alt="img"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-1678f024c39feaea45c52accdc497935_720w.webp" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-b509eabab60cae751fd51dbabd66903c_720w.webp" alt="img"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/23/blog2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="em_">
+      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="提瓦特大陆">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/23/blog2/" class="post-title-link" itemprop="url">UE5利用行为树实现简单的怪物AI</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-23 00:01:29 / 修改时间：13:39:08" itemprop="dateCreated datePublished" datetime="2023-09-23T00:01:29+08:00">2023-09-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>创建行为树：<br>在UE5编辑器中，创建一个新的行为树资源（Behavior Tree）。可以通过右键点击Content Browser，选择”Create Advanced Asset”，然后选择”Behavior Tree”来创建一个新的行为树。<br>配置行为树：<br>打开创建的行为树资源，可以看到一个树状结构的编辑器。在这里，你可以添加各种行为节点来描述角色的行为流程。<br>首先，添加一个根节点（Root），这将是整个行为树的入口点。<br>添加一个随机选择节点（Random Selector），用于随机选择巡逻行为和追击行为。<br>在随机选择节点下添加两个子节点：<br>第一个子节点是巡逻行为，你可以使用一系列的行为节点来实现巡逻逻辑，如移动到目标位置、等待一段时间等。<br>第二个子节点是追击行为，你可以使用一系列的行为节点来实现追击玩家的逻辑，如移动到玩家位置、判断距离、攻击等。<br>编写C++代码：<br>在角色的C++类中，你需要编写代码来实现行为树的初始化、黑板值的设置和更新等。<br>在角色类的头文件中，添加行为树和黑板的引用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;BehaviorTree/BehaviorTree.h&quot;</span><br><span class="line">#include &quot;BehaviorTree/BlackboardComponent.h&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在角色类的源文件中，初始化行为树和黑板，并设置默认的黑板值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">UBehaviorTree* BehaviorTree;</span><br><span class="line"></span><br><span class="line">UBlackboardComponent* Blackboard;</span><br><span class="line"></span><br><span class="line">// 初始化行为树和黑板</span><br><span class="line">BehaviorTree = LoadObject&lt;UBehaviorTree&gt;(nullptr, TEXT(&quot;你的行为树资源路径&quot;));</span><br><span class="line">Blackboard = CreateDefaultSubobject&lt;UBlackboardComponent&gt;(TEXT(&quot;BlackboardComponent&quot;));</span><br><span class="line"></span><br><span class="line">// 将黑板组件分配给控制器</span><br><span class="line">if (BehaviorTree &amp;&amp; Blackboard)</span><br><span class="line">&#123;</span><br><span class="line">    MyAIController-&gt;UseBlackboard(Blackboard, Blackboard);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 设置默认的黑板值</span><br><span class="line">Blackboard-&gt;SetValueAsVector(TEXT(&quot;PlayerLocation&quot;), FVector::ZeroVector);</span><br><span class="line">Blackboard-&gt;SetValueAsBool(TEXT(&quot;bPlayerDetected&quot;), false);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实现角色的更新逻辑，用于更新黑板值：</p>
+<pre><code>// 在角色的更新函数中，更新黑板值
+if (Blackboard)
+&#123;
+    // 更新玩家位置
+    ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+    if (PlayerCharacter)
+    &#123;
+        FVector PlayerLocation = PlayerCharacter-&gt;GetActorLocation();
+        Blackboard-&gt;SetValueAsVector(TEXT(&quot;PlayerLocation&quot;), PlayerLocation);
+    &#125;
+
+    // 更新玩家探测状态
+    bool bPlayerDetected = DetectPlayer();  // 自定义函数，用于检测玩家是否在可视范围内
+    Blackboard-&gt;SetValueAsBool(TEXT(&quot;bPlayerDetected&quot;), bPlayerDetected);
+&#125;
+</code></pre>
+<p>在AI控制器中使用行为树：<br>在AI控制器中，你需要加载和启动行为树，以及设置黑板值。</p>
+<p>在AI控制器的头文件中，添加行为树的引用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;BehaviorTree/BehaviorTreeComponent.h&quot;</span><br><span class="line">#include &quot;BehaviorTree/BlackboardComponent.h&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在AI控制器的源文件中，加载和启动行为树，并设置黑板值：</p>
+<pre><code>// 在头文件中声明以下成员变量
+UBehaviorTreeComponent* BehaviorTreeComponent;
+UBlackboardComponent* BlackboardComponent;
+
+// 在构造函数或其他适当的地方初始化行为树组件和黑板组件
+BehaviorTreeComponent = CreateDefaultSubobject&lt;UBehaviorTreeComponent&gt;(TEXT(&quot;BehaviorTreeComponent&quot;));
+BlackboardComponent = CreateDefaultSubobject&lt;UBlackboardComponent&gt;(TEXT(&quot;BlackboardComponent&quot;));
+
+// 将黑板组件分配给行为树组件
+BehaviorTreeComponent-&gt;InitializeBehaviorTree(BehaviorTree);
+BehaviorTreeComponent-&gt;SetBlackboard(BlackboardComponent);
+
+// 启动行为树
+BehaviorTreeComponent-&gt;StartTree(*BehaviorTree);
+</code></pre>
+<p>在行为树中使用黑板值：<br>在行为树中，可以使用黑板值来决策角色的行为。</p>
+<p>在巡逻行为节点中，可以使用黑板值来获取目标位置，对应的黑板键为”PlayerLocation”。<br>在追击行为节点中，可以使用黑板值来获取玩家位置，对应的黑板键为”PlayerLocation”。<br>在追击行为节点中，可以使用黑板值来获取玩家探测状态，对应的黑板键为”bPlayerDetected”。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/22/blog1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -192,10 +412,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-09-22 23:23:01 / 修改时间：23:57:29" itemprop="dateCreated datePublished" datetime="2023-09-22T23:23:01+08:00">2023-09-22</time>
+              <time title="创建时间：2023-09-22 23:23:01" itemprop="dateCreated datePublished" datetime="2023-09-22T23:23:01+08:00">2023-09-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-23 11:19:56" itemprop="dateModified" datetime="2023-09-23T11:19:56+08:00">2023-09-23</time>
+              </span>
 
           
 
@@ -210,8 +436,7 @@
       
           <hr>
 <h2 id="title-Video-Compressed-Sensing（一）"><a href="#title-Video-Compressed-Sensing（一）" class="headerlink" title="title: Video Compressed Sensing（一）"></a>title: Video Compressed Sensing（一）</h2><h1 id="使用安德森加速展开网络的端到端视频压缩感知-学习笔记"><a href="#使用安德森加速展开网络的端到端视频压缩感知-学习笔记" class="headerlink" title="使用安德森加速展开网络的端到端视频压缩感知 学习笔记"></a>使用安德森加速展开网络的端到端视频压缩感知 学习笔记</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>压缩感知(CS)作为一种成熟的技术,被广泛应用于低采样率图像的重建,特别是各种基于掩膜的CS相机中.与采用暴力采样策略的传统相机相比，这种CS相机在采集效率，存储消耗和潜在成本方面具有显着优势.</p>
-<p>这篇文章提出了一个紧凑的端到端神经网络，它可以用更少的训练参数来处理整个图像的掩模优化。这篇文章还表明，这种网络设计对应于安德森加速，这是数值优化中著名的ANONYMOUS加速技术。在真实硬件上的模拟和实验都表明这种网络优于现有方法。</p>
-<p><img src="/./img.png" alt="img.png">   </p>
+<p>这篇文章提出了一个紧凑的端到端神经网络，它可以用更少的训练参数来处理整个图像的掩模优化。这篇文章还表明，这种网络设计对应于安德森加速，这是数值优化中著名的ANONYMOUS加速技术。在真实硬件上的模拟和实验都表明这种网络优于现有方法。<br>![img.png](Note 1&#x2F;img.png)   </p>
 <p>近年来，深度判别学习方法在图像重建质量方面取得了巨大的进步。一些深度神经网络（DNN）也被提出用于压缩成像98。卷积神经网络和全连接网络被开发来重建小图像块。与基于模型的方法相比，这些基于 DNN 的方法很有效，但难以适应不同的传感矩阵。这些网络通常使用随机码掩码，例如高斯或伯努利随机掩码，因此无法实现最佳重建质量。另一方面，完全连接的网络，受到很大的搜索空间的影响，并且在实践中只有通过保留基本的连接来优化小的重复掩码。一类由非滚动迭代优化方法构建的网络已开始在图像重建中使用（例如 LISTA [21]ADMM-net [22]、118 LDAMP [23]、IRCNN [24]、 ISTA-Net [25]）。这样的网络架构结合了基于模型的方法和深度判别学习方法的优点，并且提供了高效且灵活的即插即用框架来解决逆问题。</p>
 <h2 id="2、方法"><a href="#2、方法" class="headerlink" title="2、方法"></a>2、方法</h2><h3 id="1、Mask-generation"><a href="#1、Mask-generation" class="headerlink" title="1、Mask generation"></a>1、Mask generation</h3><p><img src="/./img_1.png" alt="img_1.png"></p>
 <p><img src="/./img_2.png" alt="img_2.png"></p>
@@ -266,7 +491,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-22 23:23:48" itemprop="dateModified" datetime="2023-09-22T23:23:48+08:00">2023-09-22</time>
+                <time title="修改时间：2023-09-23 11:28:43" itemprop="dateModified" datetime="2023-09-23T11:28:43+08:00">2023-09-23</time>
               </span>
 
           
@@ -280,7 +505,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="2023-9-23-会议问题"><a href="#2023-9-23-会议问题" class="headerlink" title="2023&#x2F;9&#x2F;23 会议问题"></a>2023&#x2F;9&#x2F;23 会议问题</h1><h2 id="1、重构灵活性-SCI-mask-rate"><a href="#1、重构灵活性-SCI-mask-rate" class="headerlink" title="1、重构灵活性 SCI mask&#x2F;rate"></a>1、重构灵活性 SCI mask&#x2F;rate</h2><p>8-1-8<br>100-1-100<br>重新训练<br>问题：整体重构如何解决</p>
+<h2 id="2、-重构难度-LOSS-INFOR"><a href="#2、-重构难度-LOSS-INFOR" class="headerlink" title="2、 重构难度-&gt;LOSS INFOR"></a>2、 重构难度-&gt;LOSS INFOR</h2><p>用其他信息去补<br>1、mask信息<br>2、直接建模：可逆特性</p>
+
       
     </div>
 
@@ -433,7 +660,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
