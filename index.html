@@ -194,7 +194,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-09-25 12:01:29 / 修改时间：15:52:09" itemprop="dateCreated datePublished" datetime="2023-09-25T12:01:29+08:00">2023-09-25</time>
+              <time title="创建时间：2023-09-25 12:01:29 / 修改时间：16:06:04" itemprop="dateCreated datePublished" datetime="2023-09-25T12:01:29+08:00">2023-09-25</time>
             </span>
 
           
@@ -217,7 +217,7 @@
 <blockquote>
 <p>图片速览</p>
 </blockquote>
-<p><img src="/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/65113479c458853aef17721a.png"></p>
+<p><img src="https://pic.imgdb.cn/item/65113479c458853aef17721a.png"></p>
 <h2 id="二、现有方法缺点"><a href="#二、现有方法缺点" class="headerlink" title="二、现有方法缺点"></a>二、现有方法缺点</h2><p>基于 2D FCN 的方法忽略了 z 轴上的上下文，这将导致分割精度有限。具体来说，从体积图像中裁剪出的单个或三个相邻切片被输入到 2D FCN 并且通过简单地堆叠 2D 分割图来生成 3D 分割体积。尽管采用了相邻切片，但仍不足以探测沿三维的空间信息，这可能会降低分割性能。为了解决这个问题，一些研究人员提出使用三平面方案或 RNN 来探测 3D 上下文 。例如，Prasoon 等人。 在正交平面（例如，xy、yz 和 xz 平面）上应用了三个 2D FCN，体素预测结果由这些概率的平均值生成。与 2D FCN 相比，3D FCN 的计算成本和 GPU 内存消耗较高。高内存消耗限制了网络的深度以及滤波器的视野，这是性能提升的两个关键因素。 3D 卷积的繁重计算也阻碍了其在训练大规模数据集方面的应用。此外，许多研究人员已经证明了知识转移（从一个源领域学到的知识有效地转移到另一个领域）对于提高性能的有效性。不幸的是，缺乏 3D 预训练模型，这限制了 3D FCN 的性能和采用。</p>
 <h2 id="三、H-DenseUnet特点简介"><a href="#三、H-DenseUnet特点简介" class="headerlink" title="三、H-DenseUnet特点简介"></a>三、H-DenseUnet特点简介</h2><ol>
 <li><p>网络架构</p>
@@ -233,8 +233,8 @@
 </blockquote>
 <p>然而，原始的DenseNet - 161 是针对物体分类任务设计的，而我们的问题属于分割主题。此外，一个用于分割任务的深度FCN网络实际上包含多个最大池化和上采样操作，这可能会导致低级(即高分辨率)特征的信息丢失。基于以上两点考虑，我们开发了一个2D DenseUNet，它继承了密集连接路径和类UNet连接的优点。具体来说，在每个微块内部使用层与层之间的密集连接以确保最大的信息流，而UNet长距离连接将编码部分和解码部分链接以保留低层信息</p>
 <p><img src="https://pic.imgdb.cn/item/65113479c458853aef177233.png" alt="image-20230925145220776"></p>
-<h2 id="五、相关资料"><a href="#五、相关资料" class="headerlink" title="五、相关资料"></a>五、相关资料</h2><p><a href="%5B%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%88%86%E5%89%B2(%E5%99%A8%E5%AE%98%E3%80%81%E7%97%85%E5%8F%98">多任务分割(器官、病变)——H-DenseUNet</a>——H-DenseUNet - 知乎 (zhihu.com)](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43723261">https://zhuanlan.zhihu.com/p/43723261</a>))</p>
-<p><a href="%5BUnet%E5%8F%98%E5%BD%A2%E2%80%94%E2%80%94%E8%9E%8D%E5%90%88%E7%89%87%E9%97%B4%E7%89%B9%E5%BE%81%E5%92%8C%E7%89%87%E5%86%85%E7%89%B9%E5%BE%81%E7%9A%84H-DenseUnet_%E9%92%A7%E5%A8%83%E7%9A%84%E5%8D%9A%E5%AE%A2-CSDN%E5%8D%9A%E5%AE%A2%5D(https://blog.csdn.net/liuestcjun/article/details/83621121)">Unet变形——融合片间特征和片内特征的H-DenseUnet</a></p>
+<h2 id="五、相关资料"><a href="#五、相关资料" class="headerlink" title="五、相关资料"></a>五、相关资料</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43723261">多任务分割(器官、病变)——H-DenseUNet - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42079689/article/details/103368090">H-DenseUNet: Hybrid Densely Connected UNet for Liver and Tumor Segmentation from CT Volumes_风雪夜归人o的博客-CSDN博客</a></p>
 
       
     </div>
