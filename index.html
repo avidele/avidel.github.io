@@ -169,6 +169,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="em_">
+      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="提瓦特大陆">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/" class="post-title-link" itemprop="url">H-DenseUNet论文速览</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-25 12:01:29 / 修改时间：15:03:40" itemprop="dateCreated datePublished" datetime="2023-09-25T12:01:29+08:00">2023-09-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="H-DenseUNet论文速览"><a href="#H-DenseUNet论文速览" class="headerlink" title="H-DenseUNet论文速览"></a>H-DenseUNet论文速览</h1><h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>肝癌是世界上最常见的癌症疾病之一，每年导致大量死亡。CT的准确测量，包括肿瘤体积，形状，位置和进一步的功能性肝体积，可以帮助医生做出准确的肝细胞癌评估和治疗计划。传统上，肝脏和肝脏病变由放射科医生逐层描绘，这很耗时，并且容易出现评分者和评分者之间的差异。因此，临床上对肝肿瘤的自动分割方法要求很高。</p>
+<p>由于肝脏与其他邻近器官之间的低强度对比度，从造影剂增强的CT体积自动分割肝脏是一项非常具有挑战性的任务。此外，放射科医生通常通过注射方案来增强CT扫描，以便清楚地观察肿瘤，这可能会增加肝脏区域图像内的噪声。与肝脏分割相比，肝肿瘤分割被认为是一项更具挑战性的任务。首先，肝肿瘤在一个患者体内具有各种大小、形状、位置和数量，这阻碍了自动分割，如图1所示。其次，一些病变没有明确的边界，限制了仅基于边缘的分割方法的性能（参见图1第三行中的病变）。第三，许多CT扫描由各向异性尺寸组成，沿z轴方向变化很大（体素间距范围从0.45mm到6.0mm），这进一步给自动分割方法带来了挑战。</p>
+<p>为了解决这些困难，人们提出了许多分割方法，包括强度阈值、区域生长和可变形模型。然而，这些方法依赖于手工制作的特征，并且特征表示能力有限。最近，全卷积神经网络（FCN）在广泛的识别问题上取得了巨大成功。许多研究人员在肝脏和肿瘤分割问题中使用深度学习方法推进了这一进程，文献可大致分为两类。 </p>
+<p>(1) 2D FCN，例如如UNet架构、多通道FCN和基于VGG-16的FCN</p>
+<p>(2) 3D FCN，其中 2D 卷积被具有体积数据输入的 3D 卷积取代</p>
+<blockquote>
+<p>图片速览</p>
+</blockquote>
+<p><img src="C:\Users\12159\AppData\Roaming\Typora\typora-user-images\image-20230925144547457.png" alt="image-20230925144547457"></p>
+<h2 id="二、现有方法缺点"><a href="#二、现有方法缺点" class="headerlink" title="二、现有方法缺点"></a>二、现有方法缺点</h2><p>基于 2D FCN 的方法忽略了 z 轴上的上下文，这将导致分割精度有限。具体来说，从体积图像中裁剪出的单个或三个相邻切片被输入到 2D FCN 并且通过简单地堆叠 2D 分割图来生成 3D 分割体积。尽管采用了相邻切片，但仍不足以探测沿三维的空间信息，这可能会降低分割性能。为了解决这个问题，一些研究人员提出使用三平面方案或 RNN 来探测 3D 上下文 。例如，Prasoon 等人。 在正交平面（例如，xy、yz 和 xz 平面）上应用了三个 2D FCN，体素预测结果由这些概率的平均值生成。与 2D FCN 相比，3D FCN 的计算成本和 GPU 内存消耗较高。高内存消耗限制了网络的深度以及滤波器的视野，这是性能提升的两个关键因素。 3D 卷积的繁重计算也阻碍了其在训练大规模数据集方面的应用。此外，许多研究人员已经证明了知识转移（从一个源领域学到的知识有效地转移到另一个领域）对于提高性能的有效性。不幸的是，缺乏 3D 预训练模型，这限制了 3D FCN 的性能和采用。</p>
+<h2 id="三、H-DenseUnet特点简介"><a href="#三、H-DenseUnet特点简介" class="headerlink" title="三、H-DenseUnet特点简介"></a>三、H-DenseUnet特点简介</h2><ol>
+<li><p>网络架构</p>
+<p>首先，为了充分提取高级切片内特征，我们根据 2D 卷积的预定义设计原则设计了一个非常深且高效的网络，称为 2D DenseUNet，其中同时具有密集连接路径 和 UNet 连接的优点融合在一起。密集连接路径源自密集连接网络（DenseNet），其改进的信息流和参数效率减轻了深度网络的训练难度。与DenseNet 不同，我们在架构中的编码部分和解码部分之间添加了UNet连接，即长程跳跃连接；因此，该网络可以实现低级空间特征保留，以实现更好的切片内上下文探索。</p>
+</li>
+<li><p>混合特征探索</p>
+<p>其次，为了探索体积特征表示，我们设计了一个名为 H-DenseUNet 的端到端训练系统，其中有效提取片内和片间特征，然后通过混合特征融合（HFF）层联合优化。具体来说，3D DenseUNet 通过自动上下文机制与 2D DenseUNet 集成，这是堆叠通用性的一般形式 。在 2D DenseUNet 语义概率的指导下，可以很好地减轻 3D DenseUNet 中的优化负担，这有助于提高 3D 上下文提取的训练效率。此外，通过端到端系统，由体积特征和高级代表性切片内特征组成的混合特征可以自动融合并联合优化，以更好地识别肝脏和肿瘤。</p>
+</li>
+</ol>
+<h2 id="四、核心方法"><a href="#四、核心方法" class="headerlink" title="四、核心方法"></a>四、核心方法</h2><p>我们采用级联学习策略来减少整体的计算时间，该策略在许多识别任务中也得到了应用。首先训练一个简单的Res Net架构，得到快速但粗略的肝脏分割。在感兴趣区域( region of interest，ROI )中，我们提出的H - Dense UNet通过2D Dense UNet f2d和3D Dense UNet f3d有效地探测层内和层间特征，然后在混合特征融合( hybrid feature fusion，HFF )层中联合优化混合特征，以实现精确的肝脏和病灶分割。</p>
+<blockquote>
+<p>层与层之间的密集连接的一个优点是它比传统网络具有更少的输出维度，避免了学习冗余的特征。此外，密集连接的路径保证了层与层之间的最大信息流，改善了梯度流，从而减轻了在一个深度网络中搜索最优解的负担</p>
+</blockquote>
+<p>然而，原始的DenseNet - 161 是针对物体分类任务设计的，而我们的问题属于分割主题。此外，一个用于分割任务的深度FCN网络实际上包含多个最大池化和上采样操作，这可能会导致低级(即高分辨率)特征的信息丢失。基于以上两点考虑，我们开发了一个2D DenseUNet，它继承了密集连接路径和类UNet连接的优点。具体来说，在每个微块内部使用层与层之间的密集连接以确保最大的信息流，而UNet长距离连接将编码部分和解码部分链接以保留低层信息</p>
+<p><img src="C:\Users\12159\AppData\Roaming\Typora\typora-user-images\image-20230925145220776.png" alt="image-20230925145220776"></p>
+<h2 id="五、相关资料"><a href="#五、相关资料" class="headerlink" title="五、相关资料"></a>五、相关资料</h2><p><a href="%5B%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%88%86%E5%89%B2(%E5%99%A8%E5%AE%98%E3%80%81%E7%97%85%E5%8F%98">多任务分割(器官、病变)——H-DenseUNet</a>——H-DenseUNet - 知乎 (zhihu.com)](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43723261">https://zhuanlan.zhihu.com/p/43723261</a>))</p>
+<p><a href="%5BUnet%E5%8F%98%E5%BD%A2%E2%80%94%E2%80%94%E8%9E%8D%E5%90%88%E7%89%87%E9%97%B4%E7%89%B9%E5%BE%81%E5%92%8C%E7%89%87%E5%86%85%E7%89%B9%E5%BE%81%E7%9A%84H-DenseUnet_%E9%92%A7%E5%A8%83%E7%9A%84%E5%8D%9A%E5%AE%A2-CSDN%E5%8D%9A%E5%AE%A2%5D(https://blog.csdn.net/liuestcjun/article/details/83621121)">Unet变形——融合片间特征和片内特征的H-DenseUnet</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/25/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -286,7 +370,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/23/blog2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/1.jpg">
@@ -300,7 +384,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/09/23/blog2/" class="post-title-link" itemprop="url">UE5利用行为树实现简单的怪物AI</a>
+            <a href="/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/" class="post-title-link" itemprop="url">UE5利用行为树实现简单的怪物AI</a>
         </h2>
 
         <div class="post-meta">
@@ -389,7 +473,7 @@ BehaviorTreeComponent-&gt;StartTree(*BehaviorTree);
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/22/blog1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/1.jpg">
@@ -403,7 +487,7 @@ BehaviorTreeComponent-&gt;StartTree(*BehaviorTree);
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/09/22/blog1/" class="post-title-link" itemprop="url">Video Compressed Sensing（一）</a>
+            <a href="/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/" class="post-title-link" itemprop="url">Video Compressed Sensing（一）</a>
         </h2>
 
         <div class="post-meta">
@@ -441,142 +525,6 @@ BehaviorTreeComponent-&gt;StartTree(*BehaviorTree);
 <h2 id="2、方法"><a href="#2、方法" class="headerlink" title="2、方法"></a>2、方法</h2><h3 id="1、Mask-generation"><a href="#1、Mask-generation" class="headerlink" title="1、Mask generation"></a>1、Mask generation</h3><p><img src="/./img_1.png" alt="img_1.png"></p>
 <p><img src="/./img_2.png" alt="img_2.png"></p>
 <h3 id="2、Subframe-reconstruction"><a href="#2、Subframe-reconstruction" class="headerlink" title="2、Subframe reconstruction"></a>2、Subframe reconstruction</h3><p><img src="/./img_3.png" alt="img_3.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/21/learn1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/1.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/21/learn1/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-21 20:36:22" itemprop="dateCreated datePublished" datetime="2023-09-21T20:36:22+08:00">2023-09-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-23 11:28:43" itemprop="dateModified" datetime="2023-09-23T11:28:43+08:00">2023-09-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="2023-9-23-会议问题"><a href="#2023-9-23-会议问题" class="headerlink" title="2023&#x2F;9&#x2F;23 会议问题"></a>2023&#x2F;9&#x2F;23 会议问题</h1><h2 id="1、重构灵活性-SCI-mask-rate"><a href="#1、重构灵活性-SCI-mask-rate" class="headerlink" title="1、重构灵活性 SCI mask&#x2F;rate"></a>1、重构灵活性 SCI mask&#x2F;rate</h2><p>8-1-8<br>100-1-100<br>重新训练<br>问题：整体重构如何解决</p>
-<h2 id="2、-重构难度-LOSS-INFOR"><a href="#2、-重构难度-LOSS-INFOR" class="headerlink" title="2、 重构难度-&gt;LOSS INFOR"></a>2、 重构难度-&gt;LOSS INFOR</h2><p>用其他信息去补<br>1、mask信息<br>2、直接建模：可逆特性</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/19/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/1.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/19/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-19 13:57:49" itemprop="dateCreated datePublished" datetime="2023-09-19T13:57:49+08:00">2023-09-19</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>
@@ -660,7 +608,7 @@ BehaviorTreeComponent-&gt;StartTree(*BehaviorTree);
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
