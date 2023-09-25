@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="title: UE5行为树学习笔记UE5行为树学习笔记[UE4行为树详解](UE4行为树详解（持续更新，才怪） - 知乎 (zhihu.com)) 一.行为树节点分析 Composites 节点   Sequence 节点 按照顺序执行,若有节点返回Failed则停止执行后续节点,Sequence本身返回Failed,若下方没有任务节点,也是返回Failed.  Selector 节点  Sim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UE5行为树学习笔记">
+<meta property="og:url" content="http://example.com/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="提瓦特大陆">
+<meta property="og:description" content="title: UE5行为树学习笔记UE5行为树学习笔记[UE4行为树详解](UE4行为树详解（持续更新，才怪） - 知乎 (zhihu.com)) 一.行为树节点分析 Composites 节点   Sequence 节点 按照顺序执行,若有节点返回Failed则停止执行后续节点,Sequence本身返回Failed,若下方没有任务节点,也是返回Failed.  Selector 节点  Sim">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-3a922a186944114f39df24c0c752c3d8_720w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-f0dfbed7e12c3c42e18086d4b56b07f2_720w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-da817175f60e8f3c72fec11d0d209378_720w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1678f024c39feaea45c52accdc497935_720w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-b509eabab60cae751fd51dbabd66903c_720w.webp">
+<meta property="article:published_time" content="2023-09-22T02:01:29.000Z">
+<meta property="article:modified_time" content="2023-09-25T07:51:55.480Z">
+<meta property="article:author" content="em_">
+<meta property="article:tag" content="UE5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-3a922a186944114f39df24c0c752c3d8_720w.webp">
+
+<link rel="canonical" href="http://example.com/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>UE5行为树学习笔记 | 提瓦特大陆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">提瓦特大陆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="em_">
+      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="提瓦特大陆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UE5行为树学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-22 10:01:29" itemprop="dateCreated datePublished" datetime="2023-09-22T10:01:29+08:00">2023-09-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-25 15:51:55" itemprop="dateModified" datetime="2023-09-25T15:51:55+08:00">2023-09-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h2 id="title-UE5行为树学习笔记"><a href="#title-UE5行为树学习笔记" class="headerlink" title="title: UE5行为树学习笔记"></a>title: UE5行为树学习笔记</h2><h1 id="UE5行为树学习笔记"><a href="#UE5行为树学习笔记" class="headerlink" title="UE5行为树学习笔记"></a>UE5行为树学习笔记</h1><p>[UE4行为树详解](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143298443">UE4行为树详解（持续更新，才怪） - 知乎 (zhihu.com)</a>)</p>
+<h2 id="一-行为树节点分析"><a href="#一-行为树节点分析" class="headerlink" title="一.行为树节点分析"></a>一.行为树节点分析</h2><ol>
+<li><p><strong>Composites 节点</strong></p>
+<blockquote>
+<ol>
+<li><p>Sequence 节点</p>
+<p>按照顺序执行,若有节点返回Failed则停止执行后续节点,Sequence本身返回Failed,若下方没有任务节点,也是返回Failed.</p>
+</li>
+<li><p>Selector 节点</p>
+</li>
+<li><p>Simple Parallel 节点</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>任务节点</strong></p>
+<blockquote>
+<p>顺时任务</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 瞬间完成的任务</span></span><br><span class="line"></span><br><span class="line"><span class="function">EBTNodeResult::Type <span class="title">UBTTask_MyTask::ExecuteTask</span><span class="params">(UBehaviorTreeComponent&amp; OwnerComp, </span></span></span><br><span class="line"><span class="params"><span class="function"> uint8* NodeMemory)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="comment">// do something</span></span><br><span class="line"> <span class="keyword">return</span> EBTNodeResult::Succeeded;</span><br><span class="line"> <span class="comment">// return EBTNodeResult::Failed;</span></span><br><span class="line"> <span class="comment">// return EBTNodeResult::Aborted;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>持续时间任务</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 持续一段时间的任务</span></span><br><span class="line"></span><br><span class="line">UBTTask_MyTask::<span class="built_in">UBTTask_MyTask</span>()</span><br><span class="line">&#123;</span><br><span class="line">    bNotifyTick = <span class="literal">true</span>; <span class="comment">// 执行TickTask()的必要设置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">UBTTask_MyTask::TickTask</span><span class="params">(UBehaviorTreeComponent&amp; OwnerComp, </span></span></span><br><span class="line"><span class="params"><span class="function">    uint8* NodeMemory, <span class="type">float</span> DeltaSeconds)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// check 一段时间后结束</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/*满足条件*/</span>) <span class="built_in">FinishLatentTask</span>(*BehaviorComp, EBTNodeResult::Succeeded);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ol>
+<p>3.<strong>装饰器节点</strong></p>
+<p>装饰器是作用在行为树中的一种节点，作用是控制其他节点是否执行，或者打断正在执行的任务。</p>
+<ul>
+<li><p><strong>None</strong>：选了None的装饰器不起任何作用。个人认为是为了方便调试，你可以不用删除这个装饰器，选择None，可以忽略这个装饰器判断。</p>
+</li>
+<li><p><strong>Self</strong>：（可以立刻停止自身的）若装饰器的计算结果为True，则执行修饰的任务，如果装饰器修饰Composites节点，则允许继续查找下级节点。如果装饰器结果是false，则不执行修饰的任务，如果这个任务修饰正在持续执行的任务，当装饰器计算结果由True改变为False时，当前任务会停止；如果装饰器修饰Composites节点，则不会继续查找下级节点。</p>
+</li>
+<li><p><strong>LowerPriority</strong>：（可以立刻停止低优先级的）若当前装饰器计算结果为False，则不能执行当前修饰的节点，要执行比这个优先级低的节点。若装饰器计算结果True，会执行当前节点，并且会停止比当前节点低优先级的各种节点。进一步理解，当有一个任务是持续任务正在执行，修饰这个任务的 LowerPriority 装饰器，从True变成False，则不会停止持续任务，因为不是Self，但是如果这个任务结束了，下次再想执行，就不能执行了，因为装饰器是False。</p>
+</li>
+<li><p><strong>Both</strong>：（既可以立刻停止自身的，又可以立刻停止低优先级的）单词意思是两者，哪两者？Self和Lower Priority。当这种装饰器为True，则可以执行当前节点，停止低优先级的节点。如果这装饰器为False，则停止当前修饰的节点，执行低优先级的节点.</p>
+</li>
+<li><h2 id="其他：关于制作行为树的理解"><a href="#其他：关于制作行为树的理解" class="headerlink" title="其他：关于制作行为树的理解"></a>其他：关于制作行为树的理解</h2><ul>
+<li><p><strong>Pawn或者Character</strong>。角色可以指定一个AIController控制，比如一个狼狗角色，可以切换AIController，既可以是攻击你的怪物，也可以是NPC，或者是你可以用命令控制的宠物。角色内可以封装和角色相关的行为，角色中也有很多关键的状态，比如自定义一个bBettle战斗状态，这个状态如果在行为树中会用到，则可以将这个状态作为副本放在黑板值中，但是注意，不要在角色类中操作黑板值的更新。</p>
+</li>
+<li><p><strong>AIController</strong>。具备移动导航功能，感知相关功能，这个类用来驱动角色类行为，然后可以写修改黑板值的逻辑。比如，角色类中有个bBettle战斗状态，某个怪物感知到附近有攻击目标，AIController就会做2件事，设置角色的bBettle&#x3D;True，设置黑板值BettleState&#x3D;&#x3D;True。有时候你需要立刻停止正在执行的任务，可以调用UBehaviorTreeComponent::RestartTree方法。</p>
+</li>
+<li><p><strong>行为树资源</strong>。由各种通用的节点组成的逻辑脚本集合，行为树资源在内存中是唯一的，也就是说，多个角色会公用一个行为树资源。</p>
+</li>
+<li><p><strong>黑板资源和黑板值</strong>。用于传递数据。思考一下什么值需要变为黑板值存在呢？就是通用的用于判断子树或者任务能否执行的值，阻止做某件事，或者阻止做某件事的同时允许做某事。那就需要设置成黑板值了。黑板值可以简单的是角色属性的副本，更有可能是一个判断结果的临时保存。</p>
+</li>
+<li><p><strong>任务</strong>。具体要做的事。可以去更新黑板值，比如更新一个位置信息。调用角色内封装好的行为。个人建议，不要在任务中写复杂的关于角色内部要做的事。另外不要在任务中绑定角色的代理，因为这个任务对于所有角色是共享的。</p>
+</li>
+<li><p><strong>装饰器</strong>。条件判断，控制行为树子树的切换，控制是否执行节点。</p>
+</li>
+<li><p><strong>服务</strong>。间隔更新黑板值。或者间隔判断某个情况，再更新黑板值。</p>
+<blockquote>
+<p><strong>附UML类图</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-3a922a186944114f39df24c0c752c3d8_720w.webp" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-f0dfbed7e12c3c42e18086d4b56b07f2_720w.webp" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-da817175f60e8f3c72fec11d0d209378_720w.webp" alt="img"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-1678f024c39feaea45c52accdc497935_720w.webp" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-b509eabab60cae751fd51dbabd66903c_720w.webp" alt="img"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/UE5/" rel="tag"># UE5</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/" rel="next" title="Video Compressed Sensing（一）">
+      Video Compressed Sensing（一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">title: UE5行为树学习笔记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number"></span> <span class="nav-text">UE5行为树学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%A1%8C%E4%B8%BA%E6%A0%91%E8%8A%82%E7%82%B9%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">一.行为树节点分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%EF%BC%9A%E5%85%B3%E4%BA%8E%E5%88%B6%E4%BD%9C%E8%A1%8C%E4%B8%BA%E6%A0%91%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">其他：关于制作行为树的理解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="em_"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">em_</p>
+  <div class="site-description" itemprop="description">Always Believe That Something Wonderful Will Happen</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2023-09 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">em_</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
