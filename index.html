@@ -1,735 +1,182 @@
-<!DOCTYPE html>
-
-<!-- 雪花特效 -->
-<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
-<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="\js\snow.js"></script>
-
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
-  <script src="/lib/pace/pace.min.js"></script>
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Always Believe That Something Wonderful Will Happen">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>提瓦特大陆</title><meta name="author" content="em_"><meta name="copyright" content="em_"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Always Believe That Something Wonderful Will Happen">
 <meta property="og:type" content="website">
 <meta property="og:title" content="提瓦特大陆">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="提瓦特大陆">
 <meta property="og:description" content="Always Believe That Something Wonderful Will Happen">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg">
 <meta property="article:author" content="em_">
 <meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>提瓦特大陆</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">提瓦特大陆</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-resources">
-
-    <a href="/resources/" rel="section"><i class="download fa-fw"></i>资源</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '提瓦特大陆',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-24 21:30:38'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/" class="post-title-link" itemprop="url">H-DenseUNet论文速览</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-09-25 12:01:29 / 修改时间：16:06:04" itemprop="dateCreated datePublished" datetime="2023-09-25T12:01:29+08:00">2023-09-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+        get: key => {
+          const itemStr = localStorage.getItem(key)
       
-          <hr>
-<h2 id="title-H-DenseUNet论文速览（一）"><a href="#title-H-DenseUNet论文速览（一）" class="headerlink" title="title: H-DenseUNet论文速览（一）"></a>title: H-DenseUNet论文速览（一）</h2><h1 id="H-DenseUNet论文速览"><a href="#H-DenseUNet论文速览" class="headerlink" title="H-DenseUNet论文速览"></a>H-DenseUNet论文速览</h1><h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>肝癌是世界上最常见的癌症疾病之一，每年导致大量死亡。CT的准确测量，包括肿瘤体积，形状，位置和进一步的功能性肝体积，可以帮助医生做出准确的肝细胞癌评估和治疗计划。传统上，肝脏和肝脏病变由放射科医生逐层描绘，这很耗时，并且容易出现评分者和评分者之间的差异。因此，临床上对肝肿瘤的自动分割方法要求很高。</p>
-<p>由于肝脏与其他邻近器官之间的低强度对比度，从造影剂增强的CT体积自动分割肝脏是一项非常具有挑战性的任务。此外，放射科医生通常通过注射方案来增强CT扫描，以便清楚地观察肿瘤，这可能会增加肝脏区域图像内的噪声。与肝脏分割相比，肝肿瘤分割被认为是一项更具挑战性的任务。首先，肝肿瘤在一个患者体内具有各种大小、形状、位置和数量，这阻碍了自动分割，如图1所示。其次，一些病变没有明确的边界，限制了仅基于边缘的分割方法的性能（参见图1第三行中的病变）。第三，许多CT扫描由各向异性尺寸组成，沿z轴方向变化很大（体素间距范围从0.45mm到6.0mm），这进一步给自动分割方法带来了挑战。</p>
-<p>为了解决这些困难，人们提出了许多分割方法，包括强度阈值、区域生长和可变形模型。然而，这些方法依赖于手工制作的特征，并且特征表示能力有限。最近，全卷积神经网络（FCN）在广泛的识别问题上取得了巨大成功。许多研究人员在肝脏和肿瘤分割问题中使用深度学习方法推进了这一进程，文献可大致分为两类。 </p>
-<p>(1) 2D FCN，例如如UNet架构、多通道FCN和基于VGG-16的FCN</p>
-<p>(2) 3D FCN，其中 2D 卷积被具有体积数据输入的 3D 卷积取代</p>
-<blockquote>
-<p>图片速览</p>
-</blockquote>
-<p><img src="https://pic.imgdb.cn/item/65113479c458853aef17721a.png"></p>
-<h2 id="二、现有方法缺点"><a href="#二、现有方法缺点" class="headerlink" title="二、现有方法缺点"></a>二、现有方法缺点</h2><p>基于 2D FCN 的方法忽略了 z 轴上的上下文，这将导致分割精度有限。具体来说，从体积图像中裁剪出的单个或三个相邻切片被输入到 2D FCN 并且通过简单地堆叠 2D 分割图来生成 3D 分割体积。尽管采用了相邻切片，但仍不足以探测沿三维的空间信息，这可能会降低分割性能。为了解决这个问题，一些研究人员提出使用三平面方案或 RNN 来探测 3D 上下文 。例如，Prasoon 等人。 在正交平面（例如，xy、yz 和 xz 平面）上应用了三个 2D FCN，体素预测结果由这些概率的平均值生成。与 2D FCN 相比，3D FCN 的计算成本和 GPU 内存消耗较高。高内存消耗限制了网络的深度以及滤波器的视野，这是性能提升的两个关键因素。 3D 卷积的繁重计算也阻碍了其在训练大规模数据集方面的应用。此外，许多研究人员已经证明了知识转移（从一个源领域学到的知识有效地转移到另一个领域）对于提高性能的有效性。不幸的是，缺乏 3D 预训练模型，这限制了 3D FCN 的性能和采用。</p>
-<h2 id="三、H-DenseUnet特点简介"><a href="#三、H-DenseUnet特点简介" class="headerlink" title="三、H-DenseUnet特点简介"></a>三、H-DenseUnet特点简介</h2><ol>
-<li><p>网络架构</p>
-<p>首先，为了充分提取高级切片内特征，我们根据 2D 卷积的预定义设计原则设计了一个非常深且高效的网络，称为 2D DenseUNet，其中同时具有密集连接路径 和 UNet 连接的优点融合在一起。密集连接路径源自密集连接网络（DenseNet），其改进的信息流和参数效率减轻了深度网络的训练难度。与DenseNet 不同，我们在架构中的编码部分和解码部分之间添加了UNet连接，即长程跳跃连接；因此，该网络可以实现低级空间特征保留，以实现更好的切片内上下文探索。</p>
-</li>
-<li><p>混合特征探索</p>
-<p>其次，为了探索体积特征表示，我们设计了一个名为 H-DenseUNet 的端到端训练系统，其中有效提取片内和片间特征，然后通过混合特征融合（HFF）层联合优化。具体来说，3D DenseUNet 通过自动上下文机制与 2D DenseUNet 集成，这是堆叠通用性的一般形式 。在 2D DenseUNet 语义概率的指导下，可以很好地减轻 3D DenseUNet 中的优化负担，这有助于提高 3D 上下文提取的训练效率。此外，通过端到端系统，由体积特征和高级代表性切片内特征组成的混合特征可以自动融合并联合优化，以更好地识别肝脏和肿瘤。</p>
-</li>
-</ol>
-<h2 id="四、核心方法"><a href="#四、核心方法" class="headerlink" title="四、核心方法"></a>四、核心方法</h2><p>我们采用级联学习策略来减少整体的计算时间，该策略在许多识别任务中也得到了应用。首先训练一个简单的Res Net架构，得到快速但粗略的肝脏分割。在感兴趣区域( region of interest，ROI )中，我们提出的H - Dense UNet通过2D Dense UNet f2d和3D Dense UNet f3d有效地探测层内和层间特征，然后在混合特征融合( hybrid feature fusion，HFF )层中联合优化混合特征，以实现精确的肝脏和病灶分割。</p>
-<blockquote>
-<p>层与层之间的密集连接的一个优点是它比传统网络具有更少的输出维度，避免了学习冗余的特征。此外，密集连接的路径保证了层与层之间的最大信息流，改善了梯度流，从而减轻了在一个深度网络中搜索最优解的负担</p>
-</blockquote>
-<p>然而，原始的DenseNet - 161 是针对物体分类任务设计的，而我们的问题属于分割主题。此外，一个用于分割任务的深度FCN网络实际上包含多个最大池化和上采样操作，这可能会导致低级(即高分辨率)特征的信息丢失。基于以上两点考虑，我们开发了一个2D DenseUNet，它继承了密集连接路径和类UNet连接的优点。具体来说，在每个微块内部使用层与层之间的密集连接以确保最大的信息流，而UNet长距离连接将编码部分和解码部分链接以保留低层信息</p>
-<p><img src="https://pic.imgdb.cn/item/65113479c458853aef177233.png" alt="image-20230925145220776"></p>
-<h2 id="五、相关资料"><a href="#五、相关资料" class="headerlink" title="五、相关资料"></a>五、相关资料</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43723261">多任务分割(器官、病变)——H-DenseUNet - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42079689/article/details/103368090">H-DenseUNet: Hybrid Densely Connected UNet for Liver and Tumor Segmentation from CT Volumes_风雪夜归人o的博客-CSDN博客</a></p>
-
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
       
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/" class="post-title-link" itemprop="url">UE5利用行为树实现简单的怪物AI</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-23 00:01:29" itemprop="dateCreated datePublished" datetime="2023-09-23T00:01:29+08:00">2023-09-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-25 15:52:01" itemprop="dateModified" datetime="2023-09-25T15:52:01+08:00">2023-09-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h2 id="title-UE5利用行为树实现简单的怪物AI"><a href="#title-UE5利用行为树实现简单的怪物AI" class="headerlink" title="title: UE5利用行为树实现简单的怪物AI"></a>title: UE5利用行为树实现简单的怪物AI</h2><p>创建行为树：<br>在UE5编辑器中，创建一个新的行为树资源（Behavior Tree）。可以通过右键点击Content Browser，选择”Create Advanced Asset”，然后选择”Behavior Tree”来创建一个新的行为树。<br>配置行为树：<br>打开创建的行为树资源，可以看到一个树状结构的编辑器。在这里，你可以添加各种行为节点来描述角色的行为流程。<br>首先，添加一个根节点（Root），这将是整个行为树的入口点。<br>添加一个随机选择节点（Random Selector），用于随机选择巡逻行为和追击行为。<br>在随机选择节点下添加两个子节点：<br>第一个子节点是巡逻行为，你可以使用一系列的行为节点来实现巡逻逻辑，如移动到目标位置、等待一段时间等。<br>第二个子节点是追击行为，你可以使用一系列的行为节点来实现追击玩家的逻辑，如移动到玩家位置、判断距离、攻击等。<br>编写C++代码：<br>在角色的C++类中，你需要编写代码来实现行为树的初始化、黑板值的设置和更新等。<br>在角色类的头文件中，添加行为树和黑板的引用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;BehaviorTree/BehaviorTree.h&quot;</span><br><span class="line">#include &quot;BehaviorTree/BlackboardComponent.h&quot;</span><br></pre></td></tr></table></figure>
-
-<p>在角色类的源文件中，初始化行为树和黑板，并设置默认的黑板值：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">UBehaviorTree* BehaviorTree;</span><br><span class="line"></span><br><span class="line">UBlackboardComponent* Blackboard;</span><br><span class="line"></span><br><span class="line">// 初始化行为树和黑板</span><br><span class="line">BehaviorTree = LoadObject&lt;UBehaviorTree&gt;(nullptr, TEXT(&quot;你的行为树资源路径&quot;));</span><br><span class="line">Blackboard = CreateDefaultSubobject&lt;UBlackboardComponent&gt;(TEXT(&quot;BlackboardComponent&quot;));</span><br><span class="line"></span><br><span class="line">// 将黑板组件分配给控制器</span><br><span class="line">if (BehaviorTree &amp;&amp; Blackboard)</span><br><span class="line">&#123;</span><br><span class="line">    MyAIController-&gt;UseBlackboard(Blackboard, Blackboard);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 设置默认的黑板值</span><br><span class="line">Blackboard-&gt;SetValueAsVector(TEXT(&quot;PlayerLocation&quot;), FVector::ZeroVector);</span><br><span class="line">Blackboard-&gt;SetValueAsBool(TEXT(&quot;bPlayerDetected&quot;), false);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>实现角色的更新逻辑，用于更新黑板值：</p>
-<pre><code>// 在角色的更新函数中，更新黑板值
-if (Blackboard)
-&#123;
-    // 更新玩家位置
-    ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-    if (PlayerCharacter)
-    &#123;
-        FVector PlayerLocation = PlayerCharacter-&gt;GetActorLocation();
-        Blackboard-&gt;SetValueAsVector(TEXT(&quot;PlayerLocation&quot;), PlayerLocation);
-    &#125;
-
-    // 更新玩家探测状态
-    bool bPlayerDetected = DetectPlayer();  // 自定义函数，用于检测玩家是否在可视范围内
-    Blackboard-&gt;SetValueAsBool(TEXT(&quot;bPlayerDetected&quot;), bPlayerDetected);
-&#125;
-</code></pre>
-<p>在AI控制器中使用行为树：<br>在AI控制器中，你需要加载和启动行为树，以及设置黑板值。</p>
-<p>在AI控制器的头文件中，添加行为树的引用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;BehaviorTree/BehaviorTreeComponent.h&quot;</span><br><span class="line">#include &quot;BehaviorTree/BlackboardComponent.h&quot;</span><br></pre></td></tr></table></figure>
-
-<p>在AI控制器的源文件中，加载和启动行为树，并设置黑板值：</p>
-<pre><code>// 在头文件中声明以下成员变量
-UBehaviorTreeComponent* BehaviorTreeComponent;
-UBlackboardComponent* BlackboardComponent;
-
-// 在构造函数或其他适当的地方初始化行为树组件和黑板组件
-BehaviorTreeComponent = CreateDefaultSubobject&lt;UBehaviorTreeComponent&gt;(TEXT(&quot;BehaviorTreeComponent&quot;));
-BlackboardComponent = CreateDefaultSubobject&lt;UBlackboardComponent&gt;(TEXT(&quot;BlackboardComponent&quot;));
-
-// 将黑板组件分配给行为树组件
-BehaviorTreeComponent-&gt;InitializeBehaviorTree(BehaviorTree);
-BehaviorTreeComponent-&gt;SetBlackboard(BlackboardComponent);
-
-// 启动行为树
-BehaviorTreeComponent-&gt;StartTree(*BehaviorTree);
-</code></pre>
-<p>在行为树中使用黑板值：<br>在行为树中，可以使用黑板值来决策角色的行为。</p>
-<p>在巡逻行为节点中，可以使用黑板值来获取目标位置，对应的黑板键为”PlayerLocation”。<br>在追击行为节点中，可以使用黑板值来获取玩家位置，对应的黑板键为”PlayerLocation”。<br>在追击行为节点中，可以使用黑板值来获取玩家探测状态，对应的黑板键为”bPlayerDetected”。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/" class="post-title-link" itemprop="url">Video Compressed Sensing（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-22 23:23:01" itemprop="dateCreated datePublished" datetime="2023-09-22T23:23:01+08:00">2023-09-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-25 15:22:44" itemprop="dateModified" datetime="2023-09-25T15:22:44+08:00">2023-09-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h2 id="title-Video-Compressed-Sensing（一）"><a href="#title-Video-Compressed-Sensing（一）" class="headerlink" title="title: Video Compressed Sensing（一）"></a>title: Video Compressed Sensing（一）</h2><h1 id="使用安德森加速展开网络的端到端视频压缩感知-学习笔记"><a href="#使用安德森加速展开网络的端到端视频压缩感知-学习笔记" class="headerlink" title="使用安德森加速展开网络的端到端视频压缩感知 学习笔记"></a>使用安德森加速展开网络的端到端视频压缩感知 学习笔记</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>压缩感知(CS)作为一种成熟的技术,被广泛应用于低采样率图像的重建,特别是各种基于掩膜的CS相机中.与采用暴力采样策略的传统相机相比，这种CS相机在采集效率，存储消耗和潜在成本方面具有显着优势.</p>
-<p>这篇文章提出了一个紧凑的端到端神经网络，它可以用更少的训练参数来处理整个图像的掩模优化。这篇文章还表明，这种网络设计对应于安德森加速，这是数值优化中著名的ANONYMOUS加速技术。在真实硬件上的模拟和实验都表明这种网络优于现有方法。<br><img src="https://pic.imgdb.cn/item/651134f9c458853aef17d5ef.png" alt="img.png">   </p>
-<p>近年来，深度判别学习方法在图像重建质量方面取得了巨大的进步。一些深度神经网络（DNN）也被提出用于压缩成像98。卷积神经网络和全连接网络被开发来重建小图像块。与基于模型的方法相比，这些基于 DNN 的方法很有效，但难以适应不同的传感矩阵。这些网络通常使用随机码掩码，例如高斯或伯努利随机掩码，因此无法实现最佳重建质量。另一方面，完全连接的网络，受到很大的搜索空间的影响，并且在实践中只有通过保留基本的连接来优化小的重复掩码。一类由非滚动迭代优化方法构建的网络已开始在图像重建中使用（例如 LISTA [21]ADMM-net [22]、118 LDAMP [23]、IRCNN [24]、 ISTA-Net [25]）。这样的网络架构结合了基于模型的方法和深度判别学习方法的优点，并且提供了高效且灵活的即插即用框架来解决逆问题。</p>
-<h2 id="2、方法"><a href="#2、方法" class="headerlink" title="2、方法"></a>2、方法</h2><h3 id="1、Mask-generation"><a href="#1、Mask-generation" class="headerlink" title="1、Mask generation"></a>1、Mask generation</h3><p><img src="https://pic.imgdb.cn/item/651134f9c458853aef17d502.png" alt="img_1.png"></p>
-<p><img src="https://pic.imgdb.cn/item/651134f9c458853aef17d522.png" alt="img_2.png"></p>
-<h3 id="2、Subframe-reconstruction"><a href="#2、Subframe-reconstruction" class="headerlink" title="2、Subframe reconstruction"></a>2、Subframe reconstruction</h3><p><img src="https://pic.imgdb.cn/item/651134f9c458853aef17d59f.png" alt="img_3.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg">
-      <meta itemprop="name" content="em_">
-      <meta itemprop="description" content="Always Believe That Something Wonderful Will Happen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="提瓦特大陆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">UE5行为树学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-22 10:01:29" itemprop="dateCreated datePublished" datetime="2023-09-22T10:01:29+08:00">2023-09-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-25 15:51:55" itemprop="dateModified" datetime="2023-09-25T15:51:55+08:00">2023-09-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<h2 id="title-UE5行为树学习笔记"><a href="#title-UE5行为树学习笔记" class="headerlink" title="title: UE5行为树学习笔记"></a>title: UE5行为树学习笔记</h2><h1 id="UE5行为树学习笔记"><a href="#UE5行为树学习笔记" class="headerlink" title="UE5行为树学习笔记"></a>UE5行为树学习笔记</h1><p>[UE4行为树详解](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143298443">UE4行为树详解（持续更新，才怪） - 知乎 (zhihu.com)</a>)</p>
-<h2 id="一-行为树节点分析"><a href="#一-行为树节点分析" class="headerlink" title="一.行为树节点分析"></a>一.行为树节点分析</h2><ol>
-<li><p><strong>Composites 节点</strong></p>
-<blockquote>
-<ol>
-<li><p>Sequence 节点</p>
-<p>按照顺序执行,若有节点返回Failed则停止执行后续节点,Sequence本身返回Failed,若下方没有任务节点,也是返回Failed.</p>
-</li>
-<li><p>Selector 节点</p>
-</li>
-<li><p>Simple Parallel 节点</p>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p><strong>任务节点</strong></p>
-<blockquote>
-<p>顺时任务</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 瞬间完成的任务</span></span><br><span class="line"></span><br><span class="line"><span class="function">EBTNodeResult::Type <span class="title">UBTTask_MyTask::ExecuteTask</span><span class="params">(UBehaviorTreeComponent&amp; OwnerComp, </span></span></span><br><span class="line"><span class="params"><span class="function"> uint8* NodeMemory)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="comment">// do something</span></span><br><span class="line"> <span class="keyword">return</span> EBTNodeResult::Succeeded;</span><br><span class="line"> <span class="comment">// return EBTNodeResult::Failed;</span></span><br><span class="line"> <span class="comment">// return EBTNodeResult::Aborted;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>持续时间任务</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 持续一段时间的任务</span></span><br><span class="line"></span><br><span class="line">UBTTask_MyTask::<span class="built_in">UBTTask_MyTask</span>()</span><br><span class="line">&#123;</span><br><span class="line">    bNotifyTick = <span class="literal">true</span>; <span class="comment">// 执行TickTask()的必要设置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">UBTTask_MyTask::TickTask</span><span class="params">(UBehaviorTreeComponent&amp; OwnerComp, </span></span></span><br><span class="line"><span class="params"><span class="function">    uint8* NodeMemory, <span class="type">float</span> DeltaSeconds)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// check 一段时间后结束</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/*满足条件*/</span>) <span class="built_in">FinishLatentTask</span>(*BehaviorComp, EBTNodeResult::Succeeded);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote>
-</li>
-</ol>
-<p>3.<strong>装饰器节点</strong></p>
-<p>装饰器是作用在行为树中的一种节点，作用是控制其他节点是否执行，或者打断正在执行的任务。</p>
-<ul>
-<li><p><strong>None</strong>：选了None的装饰器不起任何作用。个人认为是为了方便调试，你可以不用删除这个装饰器，选择None，可以忽略这个装饰器判断。</p>
-</li>
-<li><p><strong>Self</strong>：（可以立刻停止自身的）若装饰器的计算结果为True，则执行修饰的任务，如果装饰器修饰Composites节点，则允许继续查找下级节点。如果装饰器结果是false，则不执行修饰的任务，如果这个任务修饰正在持续执行的任务，当装饰器计算结果由True改变为False时，当前任务会停止；如果装饰器修饰Composites节点，则不会继续查找下级节点。</p>
-</li>
-<li><p><strong>LowerPriority</strong>：（可以立刻停止低优先级的）若当前装饰器计算结果为False，则不能执行当前修饰的节点，要执行比这个优先级低的节点。若装饰器计算结果True，会执行当前节点，并且会停止比当前节点低优先级的各种节点。进一步理解，当有一个任务是持续任务正在执行，修饰这个任务的 LowerPriority 装饰器，从True变成False，则不会停止持续任务，因为不是Self，但是如果这个任务结束了，下次再想执行，就不能执行了，因为装饰器是False。</p>
-</li>
-<li><p><strong>Both</strong>：（既可以立刻停止自身的，又可以立刻停止低优先级的）单词意思是两者，哪两者？Self和Lower Priority。当这种装饰器为True，则可以执行当前节点，停止低优先级的节点。如果这装饰器为False，则停止当前修饰的节点，执行低优先级的节点.</p>
-</li>
-<li><h2 id="其他：关于制作行为树的理解"><a href="#其他：关于制作行为树的理解" class="headerlink" title="其他：关于制作行为树的理解"></a>其他：关于制作行为树的理解</h2><ul>
-<li><p><strong>Pawn或者Character</strong>。角色可以指定一个AIController控制，比如一个狼狗角色，可以切换AIController，既可以是攻击你的怪物，也可以是NPC，或者是你可以用命令控制的宠物。角色内可以封装和角色相关的行为，角色中也有很多关键的状态，比如自定义一个bBettle战斗状态，这个状态如果在行为树中会用到，则可以将这个状态作为副本放在黑板值中，但是注意，不要在角色类中操作黑板值的更新。</p>
-</li>
-<li><p><strong>AIController</strong>。具备移动导航功能，感知相关功能，这个类用来驱动角色类行为，然后可以写修改黑板值的逻辑。比如，角色类中有个bBettle战斗状态，某个怪物感知到附近有攻击目标，AIController就会做2件事，设置角色的bBettle&#x3D;True，设置黑板值BettleState&#x3D;&#x3D;True。有时候你需要立刻停止正在执行的任务，可以调用UBehaviorTreeComponent::RestartTree方法。</p>
-</li>
-<li><p><strong>行为树资源</strong>。由各种通用的节点组成的逻辑脚本集合，行为树资源在内存中是唯一的，也就是说，多个角色会公用一个行为树资源。</p>
-</li>
-<li><p><strong>黑板资源和黑板值</strong>。用于传递数据。思考一下什么值需要变为黑板值存在呢？就是通用的用于判断子树或者任务能否执行的值，阻止做某件事，或者阻止做某件事的同时允许做某事。那就需要设置成黑板值了。黑板值可以简单的是角色属性的副本，更有可能是一个判断结果的临时保存。</p>
-</li>
-<li><p><strong>任务</strong>。具体要做的事。可以去更新黑板值，比如更新一个位置信息。调用角色内封装好的行为。个人建议，不要在任务中写复杂的关于角色内部要做的事。另外不要在任务中绑定角色的代理，因为这个任务对于所有角色是共享的。</p>
-</li>
-<li><p><strong>装饰器</strong>。条件判断，控制行为树子树的切换，控制是否执行节点。</p>
-</li>
-<li><p><strong>服务</strong>。间隔更新黑板值。或者间隔判断某个情况，再更新黑板值。</p>
-<blockquote>
-<p><strong>附UML类图</strong></p>
-<p><img src="https://pic1.zhimg.com/80/v2-3a922a186944114f39df24c0c752c3d8_720w.webp" alt="img"></p>
-<p><img src="https://pic3.zhimg.com/80/v2-f0dfbed7e12c3c42e18086d4b56b07f2_720w.webp" alt="img"></p>
-<p><img src="https://pic1.zhimg.com/80/v2-da817175f60e8f3c72fec11d0d209378_720w.webp" alt="img"></p>
-<p><img src="https://pic2.zhimg.com/80/v2-1678f024c39feaea45c52accdc497935_720w.webp" alt="img"></p>
-<p><img src="https://pic1.zhimg.com/80/v2-b509eabab60cae751fd51dbabd66903c_720w.webp" alt="img"></p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="提瓦特大陆"><img class="site-icon" src="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg"/><span class="site-name">提瓦特大陆</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">提瓦特大陆</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/" title="H-DenseUNet论文速览"><img class="post-bg" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="H-DenseUNet论文速览"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/" title="H-DenseUNet论文速览">H-DenseUNet论文速览</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-25T04:01:29.000Z" title="发表于 2023-09-25 12:01:29">2023-09-25</time></span></div><div class="content">
+title: H-DenseUNet论文速览（一）H-DenseUNet论文速览一、背景肝癌是世界上最常见的癌症疾病之一，每年导致大量死亡。CT的准确测量，包括肿瘤体积，形状，位置和进一步的功能性肝体积，可以帮助医生做出准确的肝细胞癌评估和治疗计划。传统上，肝脏和肝脏病变由放射科医生逐层描绘，这很耗时，并且容易出现评分者和评分者之间的差异。因此，临床上对肝肿瘤的自动分割方法要求很高。
+由于肝脏与其他邻近器官之间的低强度对比度，从造影剂增强的CT体积自动分割肝脏是一项非常具有挑战性的任务。此外，放射科医生通常通过注射方案来增强CT扫描，以便清楚地观察肿瘤，这可能会增加肝脏区域图像内的噪声。与肝脏分割相比，肝肿瘤分割被认为是一项更具挑战性的任务。首先，肝肿瘤在一个患者体内具有各种大小、形状、位置和数量，这阻碍了自动分割，如图1所示。其次，一些病变没有明确的边界，限制了仅基于边缘的分割方法的性能（参见图1第三行中的病变）。第三，许多CT扫描由各向异性尺寸组成，沿z轴方向变化很大（体素间距范围从0.45mm到6.0mm），这进一步给自动分割方法带来了挑战。
+为了解决这些困难，人们提出了许多分 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/" title="UE5利用行为树实现简单的怪物AI"><img class="post-bg" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UE5利用行为树实现简单的怪物AI"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/" title="UE5利用行为树实现简单的怪物AI">UE5利用行为树实现简单的怪物AI</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-22T16:01:29.000Z" title="发表于 2023-09-23 00:01:29">2023-09-23</time></span></div><div class="content">
+title: UE5利用行为树实现简单的怪物AI创建行为树：在UE5编辑器中，创建一个新的行为树资源（Behavior Tree）。可以通过右键点击Content Browser，选择”Create Advanced Asset”，然后选择”Behavior Tree”来创建一个新的行为树。配置行为树：打开创建的行为树资源，可以看到一个树状结构的编辑器。在这里，你可以添加各种行为节点来描述角色的行为流程。首先，添加一个根节点（Root），这将是整个行为树的入口点。添加一个随机选择节点（Random Selector），用于随机选择巡逻行为和追击行为。在随机选择节点下添加两个子节点：第一个子节点是巡逻行为，你可以使用一系列的行为节点来实现巡逻逻辑，如移动到目标位置、等待一段时间等。第二个子节点是追击行为，你可以使用一系列的行为节点来实现追击玩家的逻辑，如移动到玩家位置、判断距离、攻击等。编写C++代码：在角色的C++类中，你需要编写代码来实现行为树的初始化、黑板值的设置和更新等。在角色类的头文件中，添加行为树和黑板的引用：
+12#include &quot;BehaviorTree/B ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/" title="Video Compressed Sensing（一）"><img class="post-bg" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Video Compressed Sensing（一）"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/" title="Video Compressed Sensing（一）">Video Compressed Sensing（一）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-22T15:23:01.000Z" title="发表于 2023-09-22 23:23:01">2023-09-22</time></span></div><div class="content">
+title: Video Compressed Sensing（一）使用安德森加速展开网络的端到端视频压缩感知 学习笔记1. 介绍压缩感知(CS)作为一种成熟的技术,被广泛应用于低采样率图像的重建,特别是各种基于掩膜的CS相机中.与采用暴力采样策略的传统相机相比，这种CS相机在采集效率，存储消耗和潜在成本方面具有显着优势.
+这篇文章提出了一个紧凑的端到端神经网络，它可以用更少的训练参数来处理整个图像的掩模优化。这篇文章还表明，这种网络设计对应于安德森加速，这是数值优化中著名的ANONYMOUS加速技术。在真实硬件上的模拟和实验都表明这种网络优于现有方法。   
+近年来，深度判别学习方法在图像重建质量方面取得了巨大的进步。一些深度神经网络（DNN）也被提出用于压缩成像98。卷积神经网络和全连接网络被开发来重建小图像块。与基于模型的方法相比，这些基于 DNN 的方法很有效，但难以适应不同的传感矩阵。这些网络通常使用随机码掩码，例如高斯或伯努利随机掩码，因此无法实现最佳重建质量。另一方面，完全连接的网络，受到很大的搜索空间的影响，并且在实践中只有通过保留基本的连接来优化小的重复掩码。一类由 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="UE5行为树学习笔记"><img class="post-bg" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UE5行为树学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="UE5行为树学习笔记">UE5行为树学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-22T02:01:29.000Z" title="发表于 2023-09-22 10:01:29">2023-09-22</time></span></div><div class="content">
+title: UE5行为树学习笔记UE5行为树学习笔记[UE4行为树详解](UE4行为树详解（持续更新，才怪） - 知乎 (zhihu.com))
+一.行为树节点分析
+Composites 节点
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
+Sequence 节点
+按照顺序执行,若有节点返回Failed则停止执行后续节点,Sequence本身返回Failed,若下方没有任务节点,也是返回Failed.
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="em_"
-      src="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg">
-  <p class="site-author-name" itemprop="name">em_</p>
-  <div class="site-description" itemprop="description">Always Believe That Something Wonderful Will Happen</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">4</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/avidele" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;avidele" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
+Selector 节点
 
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2023-09 – 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">em_</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
-  </div>
-
-        
+Simple Parallel 节点
 
 
 
 
+任务节点
 
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
-</html>
+顺时任务
+12345678910// 瞬间完成的任务EBTNodeResult::Type UBTTask_MyTask::ExecuteTask(UBehaviorTreeComponent&amp; OwnerComp,  uint8* NodeMemory)&#123; // do something return EBTNodeResult::Succeeded; // return EBTNodeResult::Failed; // return EBTNodeResult::Aborted;&#125;
+持续时间任务
+123456 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/65177fd8c458853aef32dbb0.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">em_</div><div class="author-info__description">Always Believe That Something Wonderful Will Happen</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/" title="H-DenseUNet论文速览"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="H-DenseUNet论文速览"/></a><div class="content"><a class="title" href="/2023/09/25/H-DenseUNet%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88/" title="H-DenseUNet论文速览">H-DenseUNet论文速览</a><time datetime="2023-09-25T04:01:29.000Z" title="发表于 2023-09-25 12:01:29">2023-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/" title="UE5利用行为树实现简单的怪物AI"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UE5利用行为树实现简单的怪物AI"/></a><div class="content"><a class="title" href="/2023/09/23/UE5%E5%88%A9%E7%94%A8%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%AA%E7%89%A9AI/" title="UE5利用行为树实现简单的怪物AI">UE5利用行为树实现简单的怪物AI</a><time datetime="2023-09-22T16:01:29.000Z" title="发表于 2023-09-23 00:01:29">2023-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/" title="Video Compressed Sensing（一）"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Video Compressed Sensing（一）"/></a><div class="content"><a class="title" href="/2023/09/22/%E4%BD%BF%E7%94%A8%E5%AE%89%E5%BE%B7%E6%A3%AE%E5%8A%A0%E9%80%9F%E5%B1%95%E5%BC%80%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5/" title="Video Compressed Sensing（一）">Video Compressed Sensing（一）</a><time datetime="2023-09-22T15:23:01.000Z" title="发表于 2023-09-22 23:23:01">2023-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="UE5行为树学习笔记"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UE5行为树学习笔记"/></a><div class="content"><a class="title" href="/2023/09/22/UE5%E8%A1%8C%E4%B8%BA%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="UE5行为树学习笔记">UE5行为树学习笔记</a><time datetime="2023-09-22T02:01:29.000Z" title="发表于 2023-09-22 10:01:29">2023-09-22</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/UE5/" style="font-size: 1.5em; color: #99a9bf">UE5</a> <a href="/tags/SCI/" style="font-size: 1.1em; color: #999">SCI</a> <a href="/tags/DeepLearning/" style="font-size: 1.1em; color: #999">DeepLearning</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><span class="card-archive-list-count">4</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">4</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-12-24T13:30:38.804Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By em_</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
